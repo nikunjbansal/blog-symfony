@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-sm-8">
+        {% for blog in blogs %}
+            {% include 'blog/blog_post.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}

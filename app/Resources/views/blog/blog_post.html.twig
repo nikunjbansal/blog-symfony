@@ -1,0 +1,37 @@
+{% set liked = false %}
+{% for blogLikes in blog.blogLikes %}
+    {% if blogLikes.userId.id == app.user.id %}
+        {% set liked = true %}
+    {% endif %}
+{%  endfor %}
+<script>
+    var liked = {{ liked }}
+</script>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ blog.title }}</h3>
+    </div>
+    <div class="panel-body">
+        {{ blog.content }}
+    </div>
+    <div class="panel-footer">
+        <div>
+            <span id={{ blog.id }}>{{ blog.blogLikes | length }} likes </span>
+            &nbsp;
+            <span>0 comments</span>
+        </div>
+        <span onclick="like.toggle_like_blog({{ blog.id }})">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+            {% if liked == false %}
+                <span>Like</span>
+            {% else %}
+                <span>Unlike</span>
+            {% endif %}
+        </span>
+        &nbsp;
+        <span>
+            <i class="glyphicon glyphicon-list"></i>
+            Comment
+        </span>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+parameters:
+    #parameter_name: value
+
+services:
+    app.form_login_authenticator:
+        class: AppBundle\Security\FormLoginAuthenticator
+        arguments: ["@router", "@security.password_encoder"]
+
+    user_blog_service:
+        class: AppBundle\Services\UserBlogService
+        arguments: ["@doctrine.orm.entity_manager"]
