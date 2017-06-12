@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nikunjbansal
+ * Date: 9/6/17
+ * Time: 5:11 PM
+ */
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="blog_likes")
+ */
+class BlogLikes
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="blogLikes")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     */
+    private $blogId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="likes")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $userId;
+
+}
