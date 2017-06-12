@@ -46,15 +46,15 @@ class UserBlogService implements UserBlogServiceInterface
         return $blog;
     }
 
+
     /**
-     * @param User $user
      * @return array
      */
-    public function getAllBlogs($user)
+    public function getAllBlogs()
     {
 
         $blogs = $this->em->getRepository('AppBundle:Blog')
-            ->findBy(['userId'=>$user], ['id'=>'DESC']);
+            ->findBy([],array('id'=>'DESC'));
 
         return $blogs;
     }

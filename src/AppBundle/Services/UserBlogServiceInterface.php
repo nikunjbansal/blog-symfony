@@ -22,11 +22,16 @@ interface UserBlogServiceInterface
      */
     public function createNewBlog($user);
 
+//    /**
+//     * @param User $user
+//     * @return ArrayCollection
+//     */
+//    public function getAllBlogsByUser($user);
+
     /**
-     * @param User $user
      * @return ArrayCollection
      */
-    public function getAllBlogs($user);
+    public function getAllBlogs();
 
     /**
      * @param integer $blogId

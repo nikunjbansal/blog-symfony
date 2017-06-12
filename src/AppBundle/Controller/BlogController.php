@@ -34,9 +34,6 @@ class BlogController extends Controller
     public function createBlogAction(Request $request)
     {
 
-        /** @var UserBlogService $blogService */
-        $blogService = $this->container->get('user_blog_service');
-
         $blog = new Blog();
         $form = $this->createForm(BlogType::class, $blog);
         $form->handleRequest($request);

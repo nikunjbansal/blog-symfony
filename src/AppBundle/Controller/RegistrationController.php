@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Forms\UserType;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,26 +29,32 @@ class RegistrationController extends Controller
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $error = null;
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user = $form->getData();
+            try {
+                $user = $form->getData();
 
-            $encoder = $this->get('security.password_encoder');
-            $password = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+                $encoder = $this->get('security.password_encoder');
+                $password = $encoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($password);
 
-            $user->setRole('ROLE_USER');
+                $user->setRole('ROLE_USER');
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
 
-            return $this->redirectToRoute('login');
+                return $this->redirectToRoute('login');
+            } catch(UniqueConstraintViolationException $e) {
+                $error = 'UserName/Email already exists. Please Try again';
+            }
         }
 
         return $this->render('auth/register.html.twig', [
             'form' => $form->createView(),
+            'error' => $error
         ]);
     }
 }

@@ -10,6 +10,11 @@
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
                         {{ form_start(form) }}
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                {{ error }}
+                            </div>
+                        {% endif %}
                         <div class="form_group">
                             <div class="col-md-8 col-md-offset-2">
                                 {{ form_row(form.username, {'attr': {'class': 'form-control'}}) }}
