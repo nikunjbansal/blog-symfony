@@ -3,3 +3,9 @@
     display: flex;
     align-items: center;
 }
+
+.onTop {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+}
